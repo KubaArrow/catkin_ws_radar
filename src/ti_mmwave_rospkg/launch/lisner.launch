@@ -1,0 +1,15 @@
+<!--
+  ti_mmwave_rospkg Launch 
+ -->
+
+<launch>
+
+
+  
+  <!-- mmWaveQuickConfig node (terminates after configuring mmWave sensor) -->
+  <node pkg="ti_mmwave_rospkg" type="mmWaveQuickConfig" name="lisner" output="screen" >
+    
+  </node>
+
+
+</launch>
