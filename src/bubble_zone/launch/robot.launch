@@ -1,0 +1,27 @@
+<!--
+  Launch for ROBOT
+ -->
+<launch>
+  <!--Configuration Device (Default value from TI)-->
+  <arg name="device" value="6843AOP" doc="TI mmWave sensor device type [1443, 1642, 1843, 6843, 6843AOP]"/>
+  <arg name="config" value="3d" doc="TI mmWave sensor device configuration [3d_best_range_res (not supported by 1642 EVM), 2d_best_range_res]"/>
+  <arg name="max_allowed_elevation_angle_deg" default="90" doc="Maximum allowed elevation angle in degrees for detected object data [0 > value >= 90]}"/>
+  <arg name="max_allowed_azimuth_angle_deg" default="90" doc="Maximum allowed azimuth angle in degrees for detected object data [0 > value >= 90]}"/>
+  <!---->
+  <!--Start node for sensor number 0-->
+  <node pkg="ti_mmwave_rospkg" type="ti_mmwave_rospkg" name="ti_mmwave_0" ns="radar_0" output="screen">
+    <param name="command_port" value="/dev/ttyUSB0"  />
+    <param name="command_rate" value="115200"   />
+    <param name="data_port" value="/dev/ttyUSB1"  />
+    <param name="data_rate" value="921600"   />
+    <param name="max_allowed_elevation_angle_deg" value="$(arg max_allowed_elevation_angle_deg)"   />
+    <param name="max_allowed_azimuth_angle_deg" value="$(arg max_allowed_azimuth_angle_deg)"   />
+    <param name="frame_id" value="ti_mmwave_0"/>
+    <param name="mmWaveCLI_name" value="/mmWaveCLI_0" />
+    <remap from="/ti_mmwave/radar_scan" to="/ti_mmwave/radar_scan_0"/>
+    <remap from="/ti_mmwave/radar_scan_pcl" to="/ti_mmwave/radar_scan_pcl_0"/>
+  </node>
+  <node pkg="ti_mmwave_rospkg" type="mmWaveQuickConfig" name="ti_mmwave_config" ns="radar_0" args="$(find ti_mmwave_rospkg)/cfg/$(arg device)_$(arg config).cfg" output="screen" >
+    <param name="mmWaveCLI_name" value="/mmWaveCLI_0" />
+  </node>
+</launch>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--Main marker with all zones-->
+<Zones FormatVersion="1">
+    <!--Marker of zone-->
+    <Zone work="true" zoneType="adaptive_rectangle"  amplificationFactorLinear="5" amplificationFactorAngular="1" colorAlpha="1" colorRed="1" colorGreen="0" colorBlue="0" msg="zone_1">
+        <!--Markers with point of zones-->
+        <Point x = "2" y = "-0.5"></Point>
+        <Point x = "2" y = "0.5"></Point>
+        <Point x = "-0.5" y = "0.5"></Point>
+        <Point x = "-0.5" y = "-0.5"></Point>
+    </Zone>
+    <Zone work="true" zoneType="extension_zone" amplificationFactorLinear="5" amplificationFactorAngular="1" colorAlpha="1" colorRed="0" colorGreen="1" colorBlue="0" msg="">
+        <Point x = "1" y = "1"></Point>
+        <Point x = "-1" y = "1"></Point>
+        <Point x = "-1" y = "-1"></Point>
+        <Point x = "1" y = "-1"></Point>
+    </Zone>
+    <Zone work="true" zoneType="static" amplificationFactorLinear="5" amplificationFactorAngular="1" colorAlpha="1" colorRed="0" colorGreen="0" colorBlue="1" msg="">
+        <Point x = "2" y = "1"></Point>
+        <Point x = "2" y = "-1"></Point>
+        <Point x = "-1" y = "0"></Point>
+    </Zone>
+    <Zone work="true" zoneType="half_extension_zone" amplificationFactorLinear="5" amplificationFactorAngular="1" colorAlpha="1" colorRed="1" colorGreen="1" colorBlue="0" msg="">
+        <Point x = "-1" y = "3"></Point>
+        <Point x = "-3" y = "1"></Point>
+        <Point x = "-3" y = "-1"></Point>
+        <Point x = "-1" y = "-3"></Point>
+        <Point x = "1" y = "-3"></Point>
+        <Point x = "3" y = "-1"></Point>
+        <Point x = "3" y = "1"></Point>
+        <Point x = "1" y = "3"></Point>
+    </Zone>
+</Zones>

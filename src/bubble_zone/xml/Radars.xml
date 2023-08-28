@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--Main marker with all zones-->
+<Zones FormatVersion="1">
+    <!--Marker of zone-->
+    <Zone work="true" zoneType="extension_zone" amplificationFactorLinear="5" amplificationFactorAngular="1" colorAlpha="1" colorRed="1" colorGreen="0" colorBlue="0" msg="">
+        <Point x = "1" y = "1"></Point>
+        <Point x = "-1" y = "1"></Point>
+        <Point x = "-1" y = "-1"></Point>
+        <Point x = "1" y = "-1"></Point>
+    </Zone>
+</Zones>

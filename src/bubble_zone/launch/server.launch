@@ -1,0 +1,18 @@
+<!--
+  Launch for SERVER
+ -->
+<launch>
+  <!--Main tf name-->
+  <arg name="main_tf" value="base_link" doc="Name main tf for ti_mmwave_sesnors"/>
+  <param name="/bubble_zone/main_tf" value="$(arg main_tf)"  />
+  <!--Path to xml with zones-->
+  <param name="/bubble_zone/path_xml" value="/home/monia/HETBOT/amr_radar_obstacle_avoidance/build/bubble_zone/xml/Radars.xml"  />
+  <!--Making TF for one sensor-->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="radar_baselink_0" args="-0.1 0 0.15 0 0 0 base_link ti_mmwave_0"/>
+  <!--Start node for one sensors-->
+  <node pkg="bubble_zone"  type="converterTf" name="converterTf_0" args="0" output="screen"  ></node>
+  <!--Start node with checking points-->
+  <node pkg="bubble_zone"  type="zoneHandler" name="zoneHandler" ns="bubble_zone" output="screen"  ></node>
+  <!--Start rviz-->
+  <node type="rviz" name="rviz" pkg="rviz" args="-d $(find bubble_zone)/rviz/represent.rviz" />
+</launch>

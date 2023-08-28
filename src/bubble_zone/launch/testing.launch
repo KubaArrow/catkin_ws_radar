@@ -1,0 +1,51 @@
+<!--
+  Launch for TESTING
+ -->
+<launch>
+  <!-- Input arguments -->
+  <arg name="device" value="6843AOP" doc="TI mmWave sensor device type [1443, 1642, 1843, 6843, 6843AOP]"/>
+  <arg name="config" value="3d" doc="TI mmWave sensor device configuration [3d_best_range_res (not supported by 1642 EVM), 2d_best_range_res]"/>
+  <arg name="max_allowed_elevation_angle_deg" default="90" doc="Maximum allowed elevation angle in degrees for detected object data [0 > value >= 90]}"/>
+  <arg name="max_allowed_azimuth_angle_deg" default="90" doc="Maximum allowed azimuth angle in degrees for detected object data [0 > value >= 90]}"/>
+  <arg name="main_tf" value="base_link" doc="Name main tf for ti_mmwave_sesnors"/>
+  <param name="/bubble_zone/main_tf" value="$(arg main_tf)"  />
+  <param name="/bubble_zone/path_xml" value="/home/monia/HETBOT/amr_radar_obstacle_avoidance/src/bubble_zone/xml/Radars.xml"  />
+  <node pkg="ti_mmwave_rospkg" type="ti_mmwave_rospkg" name="ti_mmwave_0" ns="radar_0" output="screen">
+    <param name="command_port" value="/dev/ttyUSB0"  />
+    <param name="command_rate" value="115200"   />
+    <param name="data_port" value="/dev/ttyUSB1"  />
+    <param name="data_rate" value="921600"   />
+    <param name="max_allowed_elevation_angle_deg" value="$(arg max_allowed_elevation_angle_deg)"   />
+    <param name="max_allowed_azimuth_angle_deg" value="$(arg max_allowed_azimuth_angle_deg)"   />
+    <param name="frame_id" value="ti_mmwave_0"/>
+    <param name="mmWaveCLI_name" value="/mmWaveCLI_0" />
+    <remap from="/ti_mmwave/radar_scan" to="/ti_mmwave/radar_scan_0"/>
+    <remap from="/ti_mmwave/radar_scan_pcl" to="/ti_mmwave/radar_scan_pcl_0"/>
+  </node>
+  <node pkg="ti_mmwave_rospkg" type="mmWaveQuickConfig" name="ti_mmwave_config" ns="radar_0" args="$(find ti_mmwave_rospkg)/cfg/$(arg device)_$(arg config).cfg" output="screen" >
+    <param name="mmWaveCLI_name" value="/mmWaveCLI_0" />
+  </node>
+  <node pkg="tf2_ros" type="static_transform_publisher" name="radar_baselink_0" args="-0.1 0 0.15 0 0 0 base_link ti_mmwave_0"/>
+  <node pkg="bubble_zone"  type="converterTf" name="converterTf_0" args="0" output="screen"  ></node>
+  <!-- mmWaveQuickConfig node (terminates after configuring mmWave sensor) 
+  <node pkg="tf2_ros" type="static_transform_publisher" name="radar_baselink_0" args="0.1 0 0.15 0 0 0 base_link ti_mmwave_0"/>
+  <node pkg="ti_mmwave_rospkg" type="ti_mmwave_rospkg" name="ti_mmwave_1" ns="radar_1" output="screen">
+    <param name="command_port" value="/dev/ttyUSB2"  />
+    <param name="command_rate" value="115200"   />
+    <param name="data_port" value="/dev/ttyUSB2"  />
+    <param name="data_rate" value="921600"   />
+    <param name="max_allowed_elevation_angle_deg" value="$(arg max_allowed_elevation_angle_deg)"   />
+    <param name="max_allowed_azimuth_angle_deg" value="$(arg max_allowed_azimuth_angle_deg)"   />
+    <param name="frame_id" value="ti_mmwave_1"/>
+    <param name="mmWaveCLI_name" value="/mmWaveCLI_1" />
+    <remap from="/ti_mmwave/radar_scan" to="/ti_mmwave/radar_scan_1"/>
+    <remap from="/ti_mmwave/radar_scan_pcl" to="/ti_mmwave/radar_scan_pcl_1"/>
+  </node>
+
+  <node pkg="ti_mmwave_rospkg" type="mmWaveQuickConfig" name="ti_mmwave_config" ns="radar_1" args="$(find ti_mmwave_rospkg)/cfg/$(arg device)_$(arg config).cfg" output="screen" >
+    <param name="mmWaveCLI_name" value="/mmWaveCLI_1" />
+  </node>
+  <node pkg="bubble_zone"  type="converterTf" name="converterTf_1" args="1" output="screen"  ></node>-->
+  <node pkg="bubble_zone"  type="zoneHandler" name="zoneHandler" ns="bubble_zone" output="screen"  ></node>
+  <node type="rviz" name="rviz" pkg="rviz" args="-d $(find bubble_zone)/rviz/represent.rviz" />
+</launch>
