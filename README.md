@@ -13,26 +13,21 @@ This repository provides an example set up that can be used to automate your ROS
 ## 1 Installation
 ### 1.1 Making workspace for catkin
 ```
-mkdir HETBOT
-cd HETBOT
+mkdir catkin_ws
+cd catkin_ws
 ```
 Next step is download our package:
 ``` 
-git clone https://gitlab.com/hetbot-robotics/amr_radar_obstacle_avoidance.git
+git clone https://https://github.com/KubaArrow/costum_safety_zone.git
 ```
 ---
->
-> __Now you must change branch to <em> versionTwo</em>__
-> ```
-> git checkout versionTwo
-> ``` 
->
+
 ### 1.2  Bulding package
 
 Next step is bulding all package
 
 ```
-cd HETBOT
+cd catkin_ws
 catkin_make 
 ```
 
